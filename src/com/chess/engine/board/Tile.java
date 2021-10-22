@@ -8,7 +8,7 @@ public abstract class Tile {
     // Can be accessed only by subclasses and set only at the time of instantiating
     protected final int tileCoordinate; // 0-63
 
-    private static final Map<Integer, EmptyTile> EMPTY_TILES = creatAllPossibleEmptyTiles();
+    private static final Map<Integer, EmptyTile> EMPTY_TILES_CACHE = creatAllPossibleEmptyTiles();
 
     private static Map<Integer, EmptyTile> creatAllPossibleEmptyTiles() {
 
@@ -21,7 +21,7 @@ public abstract class Tile {
     }
 
     public static Tile createTile(final int tileCoordinate, final Piece piece) {
-        return piece!=null ? new OccupiedTile(tileCoordinate,piece) : EMPTY_TILES.get(tileCoordinate);
+        return piece!=null ? new OccupiedTile(tileCoordinate,piece) : EMPTY_TILES_CACHE.get(tileCoordinate);
     }
 
     private Tile(int tileCoordinate) {
