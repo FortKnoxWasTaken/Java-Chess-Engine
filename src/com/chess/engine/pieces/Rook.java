@@ -13,11 +13,11 @@ import java.util.List;
 
 import static com.chess.engine.board.Move.*;
 
-public class Bishop extends Piece{
+public class Rook extends  Piece{
 
-    private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9,-7,7,9};
+    private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8,-1,1,8};
 
-    Bishop(int piecePosition, Alliance pieceAlliance) {
+    public Rook(int piecePosition, Alliance pieceAlliance) {
         super(piecePosition, pieceAlliance);
     }
 
@@ -31,7 +31,7 @@ public class Bishop extends Piece{
             while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
 
                 if(isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) ||
-                    isEightColumnExclusion(candidateCoordinateOffset, candidateCoordinateOffset)){
+                        isEightColumnExclusion(candidateCoordinateOffset, candidateCoordinateOffset)){
                     break;
                 }
 
@@ -58,10 +58,10 @@ public class Bishop extends Piece{
     }
 
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset){
-        return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset==-9 || candidateOffset==7);
+        return BoardUtils.FIRST_COLUMN[currentPosition] && candidateOffset==-1;
     }
 
     private static boolean isEightColumnExclusion(final int currentPosition, final int candidateOffset){
-        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset==-7 || candidateOffset==9);
+        return BoardUtils.EIGHT_COLUMN[currentPosition] && candidateOffset==1;
     }
 }
