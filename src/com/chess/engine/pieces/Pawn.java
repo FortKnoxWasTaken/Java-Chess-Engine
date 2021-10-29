@@ -4,6 +4,7 @@ import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
+import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,6 +68,6 @@ public class Pawn extends Piece{
                 }
             }
         }
-        return legalMoves;
+        return ImmutableList.copyOf(legalMoves);
     }
 }
