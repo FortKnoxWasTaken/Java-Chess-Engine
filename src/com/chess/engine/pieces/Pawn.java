@@ -13,7 +13,7 @@ import static com.chess.engine.board.Move.*;
 
 public class Pawn extends Piece{
 
-    private final static int[] CANDIDATE_MOVE_COORDINATE = {8,16};
+    private final static int[] CANDIDATE_MOVE_COORDINATE = {8,16,7,9};
 
     Pawn(final int piecePosition, final Alliance pieceAlliance) {
         super(piecePosition, pieceAlliance);
@@ -26,7 +26,7 @@ public class Pawn extends Piece{
 
         for(final int currentCoordinateOffset: CANDIDATE_MOVE_COORDINATE){
 
-            final int candidateDestinationCoordinate = this.piecePosition+(currentCoordinateOffset)*this.pieceAlliance.getDirection();
+            final int candidateDestinationCoordinate = this.piecePosition+currentCoordinateOffset*this.pieceAlliance.getDirection();
 
             if(!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
                 continue;
@@ -36,16 +36,37 @@ public class Pawn extends Piece{
                 //TODO more work to do here to deal with promotions!!
                 legalMoves.add(new MajorMove(board,this,candidateDestinationCoordinate));//Stub
             } else if(currentCoordinateOffset==16 && this.isFirstMove() &&
-                    (BoardUtils.SECOND_ROW[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
-                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.getPieceAlliance().isWhite())){
+                    (BoardUtils.SECOND_ROW[this.piecePosition] && this.pieceAlliance.isBlack()) ||
+                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.pieceAlliance.isWhite())){
+
                 final int behindCandidateDestinationCoordinate = this.piecePosition+(this.pieceAlliance.getDirection()*8);
+
                 if(!board.getTile(behindCandidateDestinationCoordinate).isTileOccupied() &&
                         !board.getTile(candidateDestinationCoordinate).isTileOccupied()){
                     legalMoves.add(new MajorMove(board,this,candidateDestinationCoordinate));//Stub
                 }
+            } else if(currentCoordinateOffset==7 &&
+                    !((BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceAlliance.isBlack()) ||
+                    (BoardUtils.EIGHT_COLUMN[this.piecePosition] && this.pieceAlliance.isWhite()))){
+                if(board.getTile(candidateDestinationCoordinate).isTileOccupied()){
+                    final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
+                    if(this.pieceAlliance!=pieceOnCandidate.getPieceAlliance()){
+                        //TODO MORE TO DO HERE
+                        legalMoves.add(new AttackMove(board,this,candidateDestinationCoordinate,pieceOnCandidate));
+                    }
+                }
+            } else if(currentCoordinateOffset==9 &&
+                    !((BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceAlliance.isWhite()) ||
+                    (BoardUtils.EIGHT_COLUMN[this.piecePosition] && this.pieceAlliance.isBlack()))) {
+                if(board.getTile(candidateDestinationCoordinate).isTileOccupied()){
+                    final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
+                    if(this.pieceAlliance!=pieceOnCandidate.getPieceAlliance()){
+                        //TODO MORE TO DO HERE
+                        legalMoves.add(new AttackMove(board,this,candidateDestinationCoordinate,pieceOnCandidate));
+                    }
+                }
             }
         }
-
         return legalMoves;
     }
 }
