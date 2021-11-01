@@ -21,6 +21,10 @@ public abstract class Piece {
         this.isFirstMove=false;
     }
 
+    public Integer getPiecePosition() {
+        return this.piecePosition;
+    }
+
     public Alliance getPieceAlliance(){
         return this.pieceAlliance;
     }
@@ -30,6 +34,4 @@ public abstract class Piece {
     }
 
     public abstract Collection<Move> calculateLegalMoves(final Board board);
-
-
 }
