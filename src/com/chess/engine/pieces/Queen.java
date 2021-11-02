@@ -31,7 +31,7 @@ public class Queen extends Piece {
             while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
 
                 if(isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) ||
-                        isEightColumnExclusion(candidateCoordinateOffset, candidateCoordinateOffset)){
+                        isEightColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset)){
                     break;
                 }
 
@@ -55,6 +55,11 @@ public class Queen extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    @Override
+    public String toString(){
+        return PieceType.QUEEN.toString();
     }
 
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset){
