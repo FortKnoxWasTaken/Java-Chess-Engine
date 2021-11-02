@@ -12,13 +12,19 @@ public class Board {
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
 
-    private Board(Builder builder){
+//    private final WhitePlayer whitePlayer; // Player part I starting here
+//    private final BlackPlayer blackPlayer; // The comments are for player part 1
+
+    private Board(final Builder builder){
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
 
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
+
+//        this.whitePlayer = new WhitePlayer(); // Take the comments out
+//        this.blackPlayer = new BlackPlayer(); // Okay? Im moving onto Move Class
     }
 
     @Override
