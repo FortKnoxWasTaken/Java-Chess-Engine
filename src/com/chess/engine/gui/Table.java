@@ -1,2 +1,5 @@
-package com.chess.engine.gui;public class Table {
+package com.chess.engine.gui;
+
+public class Table {
+    //Started
 }
