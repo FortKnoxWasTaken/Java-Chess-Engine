@@ -21,6 +21,7 @@ public class Bishop extends Piece{
         super(PieceType.BISHOP, piecePosition, pieceAlliance);
     }
 
+
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
 
@@ -58,8 +59,10 @@ public class Bishop extends Piece{
         return ImmutableList.copyOf(legalMoves);
     }
 
+
+
     @Override
-    public Bishop movePiece(Move move) {
+    public Bishop movePiece(final Move move) {
         return new Bishop(move.getDestinationCoordinate(),move.getMovedPiece().getPieceAlliance());
     }
 

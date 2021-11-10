@@ -52,7 +52,7 @@ public abstract class Move {
     }
 
     public Piece getMovedPiece() {
-        return movedPiece;
+        return this.movedPiece;
     }
 
     public boolean isAttack(){
