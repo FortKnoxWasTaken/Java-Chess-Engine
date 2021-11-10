@@ -1,4 +1,4 @@
-package com.chess.engine.gui;
+package com.chess.gui;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 
@@ -21,7 +21,7 @@ public class Table {
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension(10,10);
     private final Color lightTileColor = Color.decode("#FFFACD");
     private final Color darkTileColor = Color.decode("#593E1A");
-    private static String PieceImagePath = "pieceImage/";
+    private static final String PieceImagePath = "art/lichess/";
     public Table()
     {
         this.gameFrame = new JFrame("JChess");
@@ -29,10 +29,11 @@ public class Table {
         final JMenuBar tableMenuBar = createTableMenuBar();
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
+        this.chessBoard= Board.createStandardBoard();
         this.boardPanel = new BoardPanel();
         this.gameFrame.add(this.boardPanel,BorderLayout.CENTER);
         this.gameFrame.setVisible(true);
-        this.chessBoard= Board.createStandardBoard();
+
     }
 
     private JMenuBar createTableMenuBar()
@@ -58,7 +59,7 @@ public class Table {
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(0);
+                System.exit(0);
             }
         });
         fileMenu.add(exitMenuItem);
@@ -104,7 +105,9 @@ public class Table {
 
                 try
                 {
-                    final BufferedImage image = ImageIO.read(new File(PieceImagePath +board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1) +  board.getTile(this.tileId).getPiece().toString()+ ".gif"));
+                    final BufferedImage image = ImageIO.read(new File(PieceImagePath +
+                            board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1) +
+                            board.getTile(this.tileId).getPiece().toString() + ".png"));
                     add(new JLabel(new ImageIcon(image)));
                 }catch(Exception e)
                 {
@@ -120,7 +123,7 @@ public class Table {
             if(BoardUtils.EIGHT_RANK[this.tileId]||BoardUtils.SIXTH_RANK[this.tileId]||BoardUtils.FOURTH_RANK[this.tileId]||BoardUtils.SECOND_RANK[this.tileId])
                 setBackground(this.tileId%2 == 0 ? lightTileColor : darkTileColor);
             else if (BoardUtils.SEVENTH_RANK[this.tileId]||BoardUtils.FIFTH_RANK[this.tileId]||BoardUtils.THIRD_RANK[this.tileId]||BoardUtils.FIRST_RANK[this.tileId])
-                setBackground(this.tileId%2 == 0 ? lightTileColor : darkTileColor);
+                setBackground(this.tileId%2 != 0 ? lightTileColor : darkTileColor);
 
         }
 
