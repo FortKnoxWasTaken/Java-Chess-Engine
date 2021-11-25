@@ -40,7 +40,7 @@ public class Table {
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension(10,10);
     private final Color lightTileColor = Color.decode("#FFFACD");
     private final Color darkTileColor = Color.decode("#593E1A");
-    private static final String PieceImagePath = "pieceImage";
+    private static final String PieceImagePath = "pieceImage/";
     private boolean highlightLegalMoves;
     private final MoveLog moveLog;
 
@@ -329,7 +329,7 @@ public class Table {
                 {
                     final BufferedImage image = ImageIO.read(new File(PieceImagePath +
                             board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1) +
-                            board.getTile(this.tileId).getPiece().toString() + ".png"));
+                            board.getTile(this.tileId).getPiece().toString() + ".gif"));
                     add(new JLabel(new ImageIcon(image)));
                 }catch(IOException e)
                 {
